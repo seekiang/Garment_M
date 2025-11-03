@@ -114,6 +114,13 @@
   <tr><td>Admin Cost</td><td id="adminCost1"></td><td id="adminCost2"></td><td id="adminCost3"></td><td id="adminCost4"></td><td id="adminCost5"></td></tr>
   <tr><td>Delivery %</td><td contenteditable id="delivPct1"></td><td contenteditable id="delivPct2"></td><td contenteditable id="delivPct3"></td><td contenteditable id="delivPct4"></td><td contenteditable id="delivPct5"></td></tr>
   <tr><td>Delivery Cost</td><td id="delivCost1"></td><td id="delivCost2"></td><td id="delivCost3"></td><td id="delivCost4"></td><td id="delivCost5"></td></tr>
+  <td>All-In Total Cost</td>
+  <td id="allCost1"></td>
+  <td id="allCost2"></td>
+  <td id="allCost3"></td>
+  <td id="allCost4"></td>
+  <td id="allCost5"></td>
+</tr>
   <tr><td>Margin (50%)</td><td id="margin1"></td><td id="margin2"></td><td id="margin3"></td><td id="margin4"></td><td id="margin5"></td></tr>
   <tr><td>Sell Price per Piece</td><td id="sellPrice1"></td><td id="sellPrice2"></td><td id="sellPrice3"></td><td id="sellPrice4"></td><td id="sellPrice5"></td></tr>
   <tr><td>Total Revenue</td><td id="revenue1"></td><td id="revenue2"></td><td id="revenue3"></td><td id="revenue4"></td><td id="revenue5"></td></tr>
@@ -167,8 +174,9 @@ function calculateFinance() {
     const mktCost = mktPct / 100 * total;
     const adminCost = adminPct / 100 * total;
     const delivCost = delivPct / 100 * total;
+    const allCost = total + shipCost + mktCost + adminCost + delivCost;
 
-    const margin = total * 1.5;
+    const margin = allCost * 1.5;
     const sellPrice = qty ? margin / qty : 0;
     const revenue = sellPrice * qty;
     const gp = revenue - total;
@@ -181,6 +189,7 @@ function calculateFinance() {
     document.getElementById(`mktCost${i}`).textContent = mktCost.toFixed(2);
     document.getElementById(`adminCost${i}`).textContent = adminCost.toFixed(2);
     document.getElementById(`delivCost${i}`).textContent = delivCost.toFixed(2);
+    document.getElementById(`allCost${i}`).textContent = allCost.toFixed(2);
     document.getElementById(`margin${i}`).textContent = margin.toFixed(2);
     document.getElementById(`sellPrice${i}`).textContent = sellPrice.toFixed(2);
     document.getElementById(`revenue${i}`).textContent = revenue.toFixed(2);
